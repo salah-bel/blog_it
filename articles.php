@@ -1,17 +1,13 @@
 <?php
 require_once 'database.php';
 require_once 'utils.php';
-// recuprer les articles de la bdd
+require_once 'models/Article.php';
 
-$sql = "SELECT * FROM articles";
+// 1 - logic ==> recuperation des donnes du model
+$articleModel = new Article();
+$articles = $articleModel->findAll($pdo);
 
-$stmt = $pdo->prepare($sql);
-
-$stmt->execute();
-
-$articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-+
+//2- renvoyer une vue / un affichage 
 render('articles', [
     'title' => "liste des articles",
     'articles' => $articles
